@@ -25,6 +25,6 @@ Route::get('admin/posts/', function(){
 
 Route::get('/post/{num1}', 'PostsController@index');
 
-// Route::get('/post/{num1}', function($num1){
-//     return "this is number ".$num1;
-// });
+Route::get('/post/{num1}', function($num1){
+    return "this is number ".$num1;
+});
