@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,8 +25,12 @@ Route::get('admin/posts/', function(){
     return 'Testing 123';
 });
 
-Route::get('/post/{num1}', 'PostsController@index');
+Route::resource('posts', 'PostsController');
 
-Route::get('/post/{num1}', function($num1){
-    return "this is number ".$num1;
-});
+Route::get('/contact', 'PostsController@contact');
+
+// Route::get('/post/{num1}', 'PostsController@index');
+
+// Route::get('/post/{num1}', function($num1){
+//     return "this is number ".$num1;
+// });
