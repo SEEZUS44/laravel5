@@ -29,7 +29,7 @@ Route::resource('posts', 'PostsController');
 
 Route::get('/contact', 'PostsController@contact');
 
-// Route::get('/post/{num1}', 'PostsController@index');
+Route::get('/post/{id}/{password}/{name}', 'PostsController@show_post');
 
 // Route::get('/post/{num1}', function($num1){
 //     return "this is number ".$num1;
