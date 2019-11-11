@@ -11,7 +11,7 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;
+// use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,3 +34,19 @@ Route::get('/post/{id}/{password}/{name}', 'PostsController@show_post');
 // Route::get('/post/{num1}', function($num1){
 //     return "this is number ".$num1;
 // });
+
+Route::get('/insert', function(){
+
+DB::insert('insert into posts(title, content) values(?,?)',['PHP with Laravel', 'Laravel so cool best best for PHP']);
+
+});
+
+Route::get('/read', function(){
+
+   $results = DB::select('select * from posts where id =?', [1]);
+
+   foreach($results as $posts){
+
+    return $posts->content;
+   }
+});
