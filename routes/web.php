@@ -65,5 +65,5 @@ Route::get('/update', function(){
 Route::get('/del', function (){
 
     $deleted = DB::delete('delete from post where id = ?', [1]);
-    return $deleted;
+    if $deleted 
 });
