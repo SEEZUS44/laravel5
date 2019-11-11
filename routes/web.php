@@ -11,7 +11,9 @@
 |
 */
 
-// use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
+
+// use Symfony\Component\Routing\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,16 +39,31 @@ Route::get('/post/{id}/{password}/{name}', 'PostsController@show_post');
 
 Route::get('/insert', function(){
 
-DB::insert('insert into posts(title, content) values(?,?)',['PHP with Laravel', 'Laravel so cool best best for PHP']);
+DB::insert('insert into post(title, content) values(?,?)',['PHP with Laravel', 'Laravel so cool best best for PHP']);
 
 });
 
 Route::get('/read', function(){
 
-   $results = DB::select('select * from posts where id =?', [1]);
+   $results = DB::select('select * from post where id =?', [1]);
 
    foreach($results as $posts){
 
-    return $posts->content;
+    // return $posts->content;
+    return $posts->title;
    }
+});
+
+Route::get('/update', function(){
+
+    $updated = DB::update('update post set title = "Update title" where id = ?', [1]);
+
+    return $updated;
+
+});
+
+Route::get('/del', function (){
+
+    $deleted = DB::delete('delete from post where id = ?', [1]);
+    return $deleted;
 });
