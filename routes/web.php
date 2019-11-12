@@ -1,5 +1,6 @@
 <?php
 
+use App\Post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,5 +66,21 @@ Route::get('/update', function(){
 Route::get('/del', function (){
 
     $deleted = DB::delete('delete from post where id = ?', [1]);
-    if $deleted 
+
+});
+
+/*
+|-------------------------------------------------------------
+|ELOQUENT
+|-------------------------------------------------------------
+*/
+
+Route::get('/find', function (){
+
+    $posts = Post::all();
+
+    foreach ($posts as $post)
+
+    return $post->title;
+
 });
