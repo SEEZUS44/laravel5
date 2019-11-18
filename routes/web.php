@@ -1,7 +1,7 @@
 <?php
 
 use App\Post;
-use App\Posts;
+use App\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +15,6 @@ use App\Posts;
 
 use Illuminate\Support\Facades\Route;
 
-// use Symfony\Component\Routing\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,9 +40,15 @@ Route::get('/post/{id}/{password}/{name}', 'PostsController@show_post');
 
 Route::get('/insert', function(){
 
-DB::insert('insert into post(title, content) values(?,?)',['PHP with Laravel', 'Laravel so cool best best for PHP']);
+DB::insert('insert into posts(title, user_id, content, is_admin) values(?,?,?,?)',['PHP with Laravel', '1', 'Laravel so cool best best for PHP','0']);
 
 });
+
+Route::get('/insertUser', function(){
+
+    DB::insert('insert into users(name, email, password) values(?,?,?)',['Sizwe K', 'sizwet@test.com', 'LaravelSoCoolBestBestForPHP']);
+    
+    });
 
 Route::get('/read', function(){
 
@@ -85,7 +90,7 @@ Route::get('/find', function(){
     //     echo $post->content;
     // }
 
-    $post = Post::find(2);
+    $post = Post::find(1);
     return $post->content;
     //  foreach($post as $poster){
     //     return $poster->content;
@@ -101,13 +106,13 @@ Route::get('/find', function(){
 
 Route::get('/findWhr', function(){
 
-    $post = Post::where('id', 2)->orderBy('id', 'desc')->get();
+    $post = Post::where('id', 1)->orderBy('id', 'desc')->get();
 
     return $post;
 
 });
 
-Route::get('findMore', function(){
+Route::get('/findMore', function(){
 
     // $posts = Post::findOrFail(2);
     // return $posts;
@@ -201,7 +206,7 @@ Route::get('/destroy', function(){
 |-------------------------------------------------------------
 */
 
-Route::get('softDel', function(){
+Route::get('/softDel', function(){
 
     Post::find(6)->delete();
 
@@ -209,7 +214,7 @@ Route::get('softDel', function(){
 
 //RETRIEVING DELETED DATA
 
-Route::get('readSoftDel', function(){
+Route::get('/readSoftDel', function(){
 
     // $post=Post::find(6);
     // return $post;
@@ -235,4 +240,65 @@ Route::get('/permaDel', function(){
 
     Route::withTrashed()->where('id', 7)->forceDelete();
 
+});
+
+/*
+|-------------------------------------------------------------
+|ELOQUENT - Relationsips - 1 to 1
+|-------------------------------------------------------------
+*/
+
+// Route::get('/user', function(){
+//     $id=1;
+//     $post = User::find($id);
+//     // return $post;
+
+//     // return User::find($id)->post;
+
+//     return $post->name;
+    
+// }); Trying to troubleshoot the below.
+
+Route::get('/user/{id}/post', function($id){
+
+    return User::find($id)->post;
+    /*
+    In short, you pass the id then you state that using the User model
+    Find the same id within the Post model table.
+
+    This in turn will be the one-to-one relationship
+
+    MUST BE SET UP IN THE POST MODEL (as a public function)
+    */
+});
+
+Route::get('/post/{id}/user', function($id){
+
+    return Post::find($id)->user->name;
+    /*
+    Same as above, using the Post model use the id &
+    look for the id within and return the user table name with the same id
+
+    This in turn will be the inverse one-to-one relationship
+
+    MUST BE SET UP IN THE USER MODEL (as a public function)
+    */
+});
+
+/*
+|-------------------------------------------------------------
+|ELOQUENT - Relationsips - One to Many
+|-------------------------------------------------------------
+*/
+
+Route::get('/posts', function(){
+
+    $user = User::find(1);
+
+    foreach($user->posts as $post){
+
+        echo $post->title."<br>";
+        //echo will almost go through the array & echo it each time
+        //return will literally return one entry & not display the resulting array entries
+    }
 });
