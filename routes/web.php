@@ -300,5 +300,6 @@ Route::get('/posts', function(){
         echo $post->title."<br>";
         //echo will almost go through the array & echo it each time
         //return will literally return one entry & not display the resulting array entries
+        //Sizwe Thoughts: It could be because echo hits directly to the html tags while the return 
     }
 });
