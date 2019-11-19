@@ -2,6 +2,7 @@
 
 use App\Post;
 use App\User;
+use App\Role;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -245,6 +246,10 @@ Route::get('/permaDel', function(){
 /*
 |-------------------------------------------------------------
 |ELOQUENT - Relationsips - 1 to 1
+|
+|These relationships are acieved by creating hasOne, hasMany, belongsToMany within the Model and refer to the App\ModelName
+|This then allows you to call said object within the view below & refer to the data as objs within the below view functions
+|create table mode -> define columns -> open other model, create the hasMany for e.g. -> create view to call the data via the id
 |-------------------------------------------------------------
 */
 
@@ -302,4 +307,36 @@ Route::get('/posts', function(){
         //return will literally return one entry & not display the resulting array entries
         //Sizwe Thoughts: It could be because echo hits directly to the html tags while the return 
     }
+});
+
+/*
+|-------------------------------------------------------------
+|ELOQUENT - Relationsips - Many to Many
+|
+|We will be creating a Pivot table which looks at other tables
+|-------------------------------------------------------------
+*/
+
+Route::get('/returnUser/{id}/role', function($id){
+
+    $user = User::find($id);
+
+    foreach($user->roles as $role){
+
+        return $role->name;
+        /*
+        The relationship is added onto the User Model with the text return $this->belongsToMany('App\Role');
+        This allows laravel to know that the tables have a multiple relations with other tables with the tag 'belongsToMany'.
+         */
+    }
+});
+
+//QUERYING INTERMEDIATE TABLE (the pivot/lookup table that joins the Roles & Users)
+Route::get('user/pivot', function(){
+
+    $user = User::find(1);
+
+    foreach($user->roles as $role)
+
+    return $role->pivot->created_at;
 });

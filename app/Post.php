@@ -29,5 +29,8 @@ class Post extends Model
 
         return $this->belongsTo('App\User');
         //this will be one to one
+        //creates an inverse relationship to Users (you do not need this for the one to one to work)
+        //The setting in the User table is fine
     }
+
 }

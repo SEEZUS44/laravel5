@@ -48,4 +48,18 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
         //hasMany relationships with Post
     }
+
+    public function roles(){
+
+        return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id')->withPivot('created_at', 'updated_at');
+
+        /*CUSTOMIZATION OF THE DIFFERENT TABLES (if we used a different table)
+        'role_user', custom name for the pivot table
+        'user_id', FK of the user table
+        'role_id', FK of the roles table
+
+        
+        withPivot defines that these are the columns that you want to return
+        */
+    }
 }
