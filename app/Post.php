@@ -33,4 +33,18 @@ class Post extends Model
         //The setting in the User table is fine
     }
 
+    public function photos(){
+
+        return $this->morphMany('App\Photo', 'image');
+        //Polymorph config
+        //the same in the Users model
+        }
+
+    public function tags(){
+
+        return $this->morphToMany('App\Tag', 'taggable');
+
+        // Morphing to many and communicating to the tag model
+    }
+
 }

@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDeletedAtColumnToPostsTables extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +13,10 @@ class AddDeletedAtColumnToPostsTables extends Migration
      */
     public function up()
     {
-        Schema::table('post', function (Blueprint $table) {
-            //
-
-            $table->SoftDeletes();
+        Schema::create('tags', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -28,9 +27,6 @@ class AddDeletedAtColumnToPostsTables extends Migration
      */
     public function down()
     {
-        Schema::table('post', function (Blueprint $table) {
-            //
-            $table->dropColumn('deleted_at');
-        });
+        Schema::dropIfExists('tags');
     }
 }

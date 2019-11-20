@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDeletedAtToTable extends Migration
+class CreatePhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class AddDeletedAtToTable extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            //
-            $table->SoftDeletes();
+        Schema::create('photos', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('path');
+            $table->integer('image_id');
+            $table->string('image_type');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +29,6 @@ class AddDeletedAtToTable extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('photos');
     }
 }

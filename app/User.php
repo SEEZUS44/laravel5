@@ -62,4 +62,11 @@ class User extends Authenticatable
         withPivot defines that these are the columns that you want to return
         */
     }
+
+    public function photos(){
+        return $this->morphMany('App\Photo', 'image');
+        //Polymorph config
+        //the same in Post model
+        }
+
 }

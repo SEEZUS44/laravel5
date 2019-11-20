@@ -4,6 +4,7 @@ use App\Country;
 use App\Post;
 use App\User;
 use App\Role;
+use App\Photo;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -251,6 +252,11 @@ Route::get('/permaDel', function(){
 |These relationships are acieved by creating hasOne, hasMany, belongsToMany within the Model and refer to the App\ModelName
 |This then allows you to call said object within the view below & refer to the data as objs within the below view functions
 |create table mode -> define columns -> open other model, create the hasMany for e.g. -> create view to call the data via the id
+|
+|In short, you define the database table to have the FK field in it. The within the models you create a function with another models name
+|So if you connecting cutomer to orders, customer will be 1 (told it has one) & then orders will have cust id then a belongsTo/hasMany
+|then you would create the respective function with the right return $this->hasMany (for e.g.) within the other Model.
+|Have a look at the below examples to flesh out these words.
 |-------------------------------------------------------------
 */
 
@@ -361,3 +367,74 @@ Route::get('/user/country', function(){
 //A migration was created for this & the users in the same table were updated to have the corresponding id
 //countries was populated with dummy details & 'linked' to users. 
 
+//POLYMORPHIC RELATIONS PART1
+
+//He made the table & added a tag -m during the make:model part
+//Users & Post are related to photos for e.g. 
+//me.jpg exists in users with id 1 & post with id 4
+
+//POLYMORPHIC RELATIONS PART2
+//he added App\ModelName within the photos table
+//then he went to Photo, Posts & User to cofig the model
+Route::get('/user/photos', function(){
+    
+    $user = User::find(1);
+
+    foreach($user->photos as $photo){
+
+        return $photo->path;
+    }
+
+});
+
+//via photos
+//multiple
+Route::get('/post/photos', function(){
+    
+    $post = post::find(1);
+
+    foreach($post->photos as $photo){
+
+        echo $photo->path."<br>";
+    }
+    //This post then has all the pictures with the respective photos as per the db having x here & x there
+});
+
+//The below allows you to dynamically take in a variable
+Route::get('/post/{id}/photos', function($id){
+    
+    $post = post::find($id);
+
+    foreach($post->photos as $photo){
+
+        echo $photo->path."<br>";
+    }
+});
+
+//POLYMORPHIC BUT THE INVERSE
+
+Route::get('/photo/{id}/post', function($id){
+
+    $photo = Photo::findOrFail($id);
+    //find or fail throws back an error message as to why it failed
+
+    return $photo->image;
+    //image is the primary id
+    //tbh it makes sense but eish go back and forth between the Models
+    //Seems like the answers are there 
+});
+
+//MANY TO MANY POLYMORPHIC RELATIONSHIP
+//Share a list of details with other tables
+//
+
+Route::get('post/tag', function(){
+
+    $post = Post::find(1);
+
+    foreach($post->tags as $tag){
+        
+    echo $tag->name;
+
+    }
+});
