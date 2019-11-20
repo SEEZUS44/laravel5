@@ -1,5 +1,6 @@
 <?php
 
+use App\Country;
 use App\Post;
 use App\User;
 use App\Role;
@@ -332,7 +333,7 @@ Route::get('/returnUser/{id}/role', function($id){
 });
 
 //QUERYING INTERMEDIATE TABLE (the pivot/lookup table that joins the Roles & Users)
-Route::get('user/pivot', function(){
+Route::get('/user/pivot', function(){
 
     $user = User::find(1);
 
@@ -340,3 +341,23 @@ Route::get('user/pivot', function(){
 
     return $role->pivot->created_at;
 });
+
+//HAS MANY THROUGH RELATIONSHIP - PART 1
+//Accessing data via the intermediary table
+//HAS MANY THROUGH - PART 2
+//Please see Country Model for more details
+
+Route::get('/user/country', function(){
+
+    $country = Country::find(4);
+
+    foreach($country->posts as $post){
+        return $post->title;
+    }
+
+});
+//A new column was added to the users - country id
+//he defined this as an integer within the migration file
+//A migration was created for this & the users in the same table were updated to have the corresponding id
+//countries was populated with dummy details & 'linked' to users. 
+
