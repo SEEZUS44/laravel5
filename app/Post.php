@@ -12,7 +12,9 @@ class Post extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'user_id',
+        'is_admin',
     ];
     /*Basically the section uptop does the following:
     
@@ -43,7 +45,6 @@ class Post extends Model
     public function tags(){
 
         return $this->morphToMany('App\Tag', 'taggable');
-
         // Morphing to many and communicating to the tag model
     }
 
