@@ -5,6 +5,7 @@ use App\Post;
 use App\User;
 use App\Role;
 use App\Photo;
+use App\Tag;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,42 +42,42 @@ Route::get('/post/{id}/{password}/{name}', 'PostsController@show_post');
 //     return "this is number ".$num1;
 // });
 
-Route::get('/insert', function(){
+// Route::get('/insert', function(){
 
-DB::insert('insert into posts(title, user_id, content, is_admin) values(?,?,?,?)',['PHP with Laravel', '1', 'Laravel so cool best best for PHP','0']);
+// DB::insert('insert into posts(title, user_id, content, is_admin) values(?,?,?,?)',['PHP with Laravel', '1', 'Laravel so cool best best for PHP','0']);
 
-});
+// });
 
-Route::get('/insertUser', function(){
+// Route::get('/insertUser', function(){
 
-    DB::insert('insert into users(name, email, password) values(?,?,?)',['Sizwe K', 'sizwet@test.com', 'LaravelSoCoolBestBestForPHP']);
+//     DB::insert('insert into users(name, email, password) values(?,?,?)',['Sizwe K', 'sizwet@test.com', 'LaravelSoCoolBestBestForPHP']);
     
-    });
+//     });
 
-Route::get('/read', function(){
+// Route::get('/read', function(){
 
-   $results = DB::select('select * from post', [1]);
+//    $results = DB::select('select * from post', [1]);
 
-   foreach($results as $posts){
+//    foreach($results as $posts){
 
-    // return $posts->content;
-    return $posts->title;
-   }
-});
+//     // return $posts->content;
+//     return $posts->title;
+//    }
+// });
 
-Route::get('/update', function(){
+// Route::get('/update', function(){
 
-    $updated = DB::update('update post set title = "Update title" where id = ?', [1]);
+//     $updated = DB::update('update post set title = "Update title" where id = ?', [1]);
 
-    return $updated;
+//     return $updated;
 
-});
+// });
 
-Route::get('/del', function (){
+// Route::get('/del', function (){
 
-    $deleted = DB::delete('delete from post where id = ?', [1]);
+//     $deleted = DB::delete('delete from post where id = ?', [1]);
 
-});
+// });
 
 /*
 |-------------------------------------------------------------
@@ -424,17 +425,75 @@ Route::get('/photo/{id}/post', function($id){
     //Seems like the answers are there 
 });
 
-//MANY TO MANY POLYMORPHIC RELATIONSHIP
+// POLYMORPHIC RELATION MANY TO MANY 
 //Share a list of details with other tables
-//
 
 Route::get('post/tag', function(){
 
     $post = Post::find(1);
+    //returns post entries as an array
 
     foreach($post->tags as $tag){
-        
+    //FOREACH DEFINITION
+    //this for loop goes through each array entry
+    //returns it & this object's name field is returned.
+    
     echo $tag->name;
 
     }
 });
+
+// POLYMORPHIC RELATION MANY TO MANY - RETRIEVING OWNER
+//Owner could be a post or video
+//In the below example he is looking for the post a video belongs to via the tag
+//POST < TAG > VIDEO (many to many relationship definition)
+Route::get('tag/post', function(){
+
+    // foreach($tag->posts as $post){
+         /*So find id 2
+         //2 has entry App\Post
+        //Using the Model (post) associated, return the the value stored (in post). 
+         By refering to the tag_id stored in taggables & the model noted. So for tag_id=1, show me object in taggable_d 1 in App\Video
+         Database entry (taggables):
+         TAG_ID  TAGGABLE_ID TAGGABLE_TYPE
+         1       1           App\Video
+         2       1           App\Post
+         3       3           App\Post
+
+         Database entry(Post):
+         ID  TITLE   CONTENT
+         2   XXXXXXX XXXXXXX
+         3   YYYYYYY YYYYYYY
+
+        Tag::find(2) will return post item 2
+        Tag::find(3) will return post item 3
+        $tag = Tag::find(1);
+        foreach($tag->videos as $vid){
+        return $vid->name;
+        
+        return $post;
+        This will then return video entry with id 1
+         }
+
+         */
+        $tag = Tag::find(2);
+
+        foreach($tag->posts as $post){
+        
+        // return $post->title;
+        // return $post->content;
+        return $post;
+        } 
+     
+});
+/*
+|
+|-----------------------------------------------------
+|
+|FORMS & VALIDATION SECITON - CRUD APPLICATION
+|
+|-----------------------------------------------------
+|
+*/
+
+Route::resource('posts', 'PostsController');

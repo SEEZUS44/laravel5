@@ -3,18 +3,22 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Post extends Model
 {
-    use SoftDeletes;
+
 
     protected $primaryKey = 'id';
+
     protected $fillable = [
+
+        'user_id',
         'title',
         'content',
-        'user_id',
         'is_admin',
+        'created_at',
+        'updated_at',
     ];
     /*Basically the section uptop does the following:
     
@@ -24,8 +28,6 @@ class Post extends Model
 
     After that, to allow the mass assignments (basically inserts ) onto the table you create the fillable aspect with the array.
     */
-
-    protected $dates = ['deleted_at'];
 
     public function user(){
 

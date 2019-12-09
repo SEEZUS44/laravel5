@@ -15,10 +15,10 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();//unsigned as we only want positive numbers
+            $table->integer('user_id')->unsigned()->nullable();//unsigned as we only want positive numbers
             $table->string('title');
-            $table->text('content');
-            $table->bigInteger('is_admin');
+            $table->text('content')->nullable();
+            $table->bigInteger('is_admin')->nullable();
             $table->timestamps();
         });
     }
