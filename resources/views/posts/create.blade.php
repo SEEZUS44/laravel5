@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<H1>create post</H1>
 <form method="post" action="/posts">
     {{-- The above stpulates the method that'll be used by the form. --}}
     {{-- using the artisan routes created --}}
@@ -14,6 +14,8 @@
         Which is linked via Route::resource('posts', 'PostsController');
         Which calls the posts create
         ***NOT SURE AT THIS MOMENT THE TRUE TIE UP BUT THIS JUST MIGHT BE ALL
+
+        RUN ARTISAN LIST COMMAND TO SEE THE LISTS WITH RELATION TO THE VIEW AND CONTROLLER
         --}}
 </form>
 @endsection

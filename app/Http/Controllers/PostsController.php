@@ -93,7 +93,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+         $post = Post::findOrFail($id);
+
+         return view('posts.edit', compact('post'));
     }
 
     /**
@@ -106,6 +108,17 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // return $request->all(); this is to test that the round trip 
+        // between controller & view & the data transimission works
+        // Below is the actual data transfer & view then update
+        $post = Post::findOrFail($id);
+
+        $post->update($request->all());
+        //the line here updates all for the $id thrown in 
+
+        // return redirect('post.index'); wrong way of doing it
+        return redirect('/posts');
+        //redirect the browser to the index once the above is complete
     }
 
     /**
@@ -116,7 +129,14 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $post->delete();
+
+        return redirect('/posts');
+
+        // $post = Post::whereId($id)->delete();
+        // Or this
     }
 
     public function contact(){
