@@ -47,6 +47,7 @@ class PostsController extends Controller
         // return $request->title;//like all() but returns 1
 
         //adding data to the datatable
+        //EDWIN USED THIS ONE CHECKOUT BASIC VALIDATION VIDEO 135 MIN 1:22
         // Post::create($request->all());
 
         //Another way
@@ -55,6 +56,16 @@ class PostsController extends Controller
         // $input['title'] = $request->title;
 
         // Another another way
+        $this->validate($request, [
+
+            //rules to validate
+            'title'=>'required|max:10'
+            // ,
+            // 'content'=>'required'
+            // //validations are stored in a variable for a blank entry.
+            // example 'required|max:50'
+        ]);
+
         $post = new Post;
 
         $post->title = $request->title;
