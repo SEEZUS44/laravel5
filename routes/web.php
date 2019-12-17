@@ -1,5 +1,7 @@
 <?php
 
+
+use Carbon\Carbon;
 use App\Country;
 use App\Post;
 use App\User;
@@ -499,4 +501,26 @@ Route::group(['middleware'=>'web'], function(){
 
     Route::resource('posts', 'PostsController');
     
+});
+
+/*
+|
+|-----------------------------------------------------
+|
+|SECTION 20: MODEL MANIPULATION
+|
+|-----------------------------------------------------
+|
+*/
+
+Route::get('dates', function () {
+    
+    $date = new DateTime('+1 week');
+
+    echo $date->format('m-d-Y');
+
+    echo '<br>';
+
+    //carbon
+    echo Carbon::now()->addDays(10)->diffForHumans();
 });

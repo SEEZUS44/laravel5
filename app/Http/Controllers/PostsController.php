@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreatePostRequest;
 
 class PostsController extends Controller
 {
@@ -39,7 +40,7 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
         //Receives the super value via the $request object
         // return $request->all(); this returns the thingy - look it up 
@@ -56,15 +57,17 @@ class PostsController extends Controller
         // $input['title'] = $request->title;
 
         // Another another way
-        $this->validate($request, [
+        // $this->validate($request, [
 
-            //rules to validate
-            'title'=>'required|max:10'
-            // ,
-            // 'content'=>'required'
-            // //validations are stored in a variable for a blank entry.
-            // example 'required|max:50'
-        ]);
+        //     //rules to validate
+        //     'title'=>'required|max:10'
+        //     // ,
+        //     // 'content'=>'required'
+        //     // //validations are stored in a variable for a blank entry.
+        //     // example 'required|max:50'
+        // ]);
+
+        //The above is commented out as a class was created to control & maintain validations
 
         $post = new Post;
 
