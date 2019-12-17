@@ -520,7 +520,6 @@ Route::get('dates', function () {
     echo $date->format('m-d-Y');
 
     echo '<br>';
-
     //carbon
     echo Carbon::now()->addDays(10)->diffForHumans();
 });
