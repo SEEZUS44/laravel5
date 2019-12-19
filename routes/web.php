@@ -524,3 +524,29 @@ Route::get('dates', function () {
     //carbon
     echo Carbon::now()->addDays(10)->diffForHumans();
 });
+
+//ACCESSORS AND MUTATORS
+//ACCESSORS GET DATA FROM DATABASE
+//MUTATORS CAN CHANGE A VALUE BEFORE IT GOES TO THE DATABASE
+
+Route::get('getName', function(){
+
+    $user = User::find(1);
+
+    echo $user->name;
+    //please see User.php for the accessor code
+});
+
+Route::get('setName', function(){
+
+        $user = User::find(1);
+
+        $user->name= "william";
+
+        $user->save();
+        /*
+        What this does is takes the user 1 and sets the name to william.
+        This is achieved via the Mutator specified in the User.php model 
+        It takes the attribute, updates it to william with upper case [see Model] & saves it back.
+        */
+});

@@ -69,4 +69,17 @@ class User extends Authenticatable
         //the same in Post model
         }
 
+    public function getNameAttribute($value){
+        //accessor
+        //data not changed on the database
+        return strtoupper($value);
+    }
+
+    public function setNameAttribute($value){
+        //mutator
+        //changing data on the database
+
+        $this->attributes['name'] = strtoupper($value);
+        //get the name attribute and set it to xxxx
+    }
 }
