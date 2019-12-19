@@ -16,7 +16,10 @@ class PostsController extends Controller
     public function index()
     {
         //
-        $posts = Post::all();
+        $posts = Post::latest()->get();
+        //Here was showing the query scop functionality. Go down to line 177 to see actual query
+        //Accessible from the Posts.php model file for more information
+
         return view('posts.index', compact('posts'));
     }
 
@@ -192,4 +195,7 @@ class PostsController extends Controller
         // return view('post')->with('id',$id);
         return view('post', compact('id','password','test'));
     }
+
+
+
 }

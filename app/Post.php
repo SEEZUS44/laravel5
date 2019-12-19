@@ -52,9 +52,28 @@ class Post extends Model
         // Morphing to many and communicating to the tag model
     }
 
+<<<<<<< HEAD
     public function getPathAttribute($value){
 
         return $this->directory . $value;
+=======
+    public function scopeLatest($query){
+
+        return $query->orderBy('id', 'asc');
+        //over here this was the scope lesson where he defined the scope of the 'query' and plugged it next to an instance of a model
+        //Please see the index function to see
+    
+        //So the index should have been $post = Post::all() then he changed it up to get ID and order by it ascending then get it.
+        //He then compressed this into a variable and then wala it shows.
+
+        // Query Scope
+        /*
+        A way to reduce the size of a lengthy query
+
+        MUST BE WRITTEN AS 'SCOPE' and then you reference it by latest in the controller 
+        Example: $post = Post::latest()->get()
+        */
+>>>>>>> 5e2d93a8abb487f4ad4efdf69c2f688aa441d7b9
 
     }
 }
