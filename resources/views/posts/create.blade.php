@@ -10,24 +10,32 @@
     {{-- you then access the method posts store which is in PostsController@store --}}
 
 
-         {!! Form::open(['method' => 'POST','action' => 'PostsController@store']) !!}
+         {!! Form::open(['method' => 'POST','action' => 'PostsController@store', 'files'=>true]) !!}
 
         {{-- This requires require laravel/collection in the composer.json & an addition of entries within the config/app 
              '--}}
 
         {{-- array added within to define it, look at the line 06 code 
             It basically reads, this is a post form & uses the store methid in the PostsController
-        --}}
+        
+        the files=>true allows files to be uploaded.
+        
+            --}}
+
 
         <div class="form-group">
 
         {!! Form::label('title', 'Title:')!!}
         {!! Form::text('title', null, ['class'=>'form-control'])!!}
 
-
         </div>
 
-            {!! Form::submit('Create Post', ['class'=>'btn btn-primary']) !!}
+        <div class="form-group">
+            {!! Form::file('file', ['class'=>'form-control'])!!}    
+        </div>
+        {{-- The above is for the file upload button --}}
+
+        {!! Form::submit('Create Post', ['class'=>'btn btn-primary']) !!}
 
         {{-- HTML BELOW AND FORM PACAGE FUNCTIONALITY ABOVE --}}
 

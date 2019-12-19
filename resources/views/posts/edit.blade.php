@@ -14,7 +14,6 @@
 
         {!! Form::submit('Update Post', ['class'=>'btn btn-info']) !!}
 
-
         {!!Form::close()!!}
 
      {!! Form::model($post, ['method' => 'DELETE','action' => ['PostsController@destroy', $post->id]]) !!}

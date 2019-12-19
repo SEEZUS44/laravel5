@@ -42,6 +42,33 @@ class PostsController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
+
+        $input=$request->all();
+
+        if($file = $request->file('file')){
+        //if file exists
+
+        $name=$file->getClientOriginalName();
+        $file->move('images', $name);
+
+        //move the file to images, and the name of it
+        
+        $input['path'] = $name;
+
+        }
+
+        Post::create($input);
+        return redirect('/posts');
+        // the following is to handle file uploads
+        //        return $request->file('file'); (temp name below returns actal file name)
+        // $file = $request->file('file');
+        
+        // echo "<br>";
+
+        // echo $file->getClientOriginalName();
+        // getClientSizer would retrieve the file size and then you can use this to display that file too large for example
+        // You can create using other things for file handling.
+
         //Receives the super value via the $request object
         // return $request->all(); this returns the thingy - look it up 
         //return $request->get('title');will return the entered value

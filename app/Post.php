@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
 
+    public $directory = "/images/";
 
     protected $primaryKey = 'id';
 
@@ -19,6 +20,7 @@ class Post extends Model
         'is_admin',
         'created_at',
         'updated_at',
+        'path',
     ];
     /*Basically the section uptop does the following:
     
@@ -50,4 +52,9 @@ class Post extends Model
         // Morphing to many and communicating to the tag model
     }
 
+    public function getPathAttribute($value){
+
+        return $this->directory . $value;
+
+    }
 }

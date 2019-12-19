@@ -5,9 +5,20 @@
     <ul>
 
         @foreach ($posts as $post)
-         
-         <li><a href="{{route('posts.show', $post->id)}}">{{$post->title}}</a></li>   
-        {{-- According to Edwin:
+        
+        <div class="image-container">
+            <img height="100" img src="{{$post->path}}" alt="">
+
+            {{-- 
+                /images/{{$post->path}}
+                He used the accessor to direct it to the correct path within the system files
+            --}} 
+        </div>
+        
+         <li><a href="{{route('posts.show', $post->id)}}">{{$post->title}}</a></li>  
+        
+        {{-- 
+            According to Edwin:
 
             so ul is unordered bulleted list (Google)
             @foreach loops through all the array items returned
